@@ -1,448 +1,508 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Jyothi Muccherla - Technical Writing Portfolio</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #333; background: #f5f7f9; }
-        .header { background: linear-gradient(135deg, #0066cc 0%, #004999 100%); color: white; padding: 20px 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .header h1 { font-size: 24px; font-weight: 600; }
-        .header p { font-size: 14px; opacity: 0.9; margin-top: 5px; }
-        .container { display: flex; min-height: calc(100vh - 80px); }
-        .sidebar { width: 280px; background: white; border-right: 1px solid #e1e4e8; padding: 30px 20px; overflow-y: auto; position: sticky; top: 80px; height: calc(100vh - 80px); }
-        .nav-section { margin-bottom: 30px; }
-        .nav-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #0066cc; margin-bottom: 12px; letter-spacing: 0.5px; }
-        .nav-link { display: block; padding: 8px 12px; color: #586069; text-decoration: none; border-radius: 6px; font-size: 14px; margin-bottom: 4px; transition: all 0.2s; }
-        .nav-link:hover { background: #f6f8fa; color: #0366d6; }
-        .nav-link.active { background: #e8f4ff; color: #0366d6; font-weight: 500; }
-        .nav-sublink { padding-left: 28px; font-size: 13px; color: #6a737d; }
-        .main-content { flex: 1; padding: 40px 60px; max-width: 1000px; }
-        .page { display: none; animation: fadeIn 0.3s; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .about-card { background: white; padding: 60px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; margin-bottom: 30px; }
-        .about-card h2 { font-size: 36px; color: #0066cc; margin-bottom: 15px; }
-        .about-card .subtitle { font-size: 18px; color: #586069; margin-bottom: 25px; }
-        .about-card .summary { max-width: 700px; margin: 0 auto 25px auto; text-align: justify; color: #586069; line-height: 1.8; font-size: 14px; }
-        .about-card .contact { display: flex; justify-content: center; gap: 25px; font-size: 14px; color: #6a737d; margin-top: 20px; }
-        .about-card .contact a { color: #0366d6; text-decoration: none; }
-        .disclaimer-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px; border: 1px solid #e1e4e8; }
-        .disclaimer-card h3 { color: #24292e; font-size: 18px; font-weight: 600; margin-bottom: 15px; }
-        .disclaimer-card p { color: #586069; font-size: 14px; line-height: 1.6; margin: 0; }
-        .samples-section h2 { text-align: center; color: #24292e; font-size: 28px; margin-bottom: 30px; }
-        .samples-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-        .sample-card { background: white; border: 1px solid #e1e4e8; border-radius: 12px; padding: 30px; cursor: pointer; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .sample-card:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,102,204,0.15); border-color: #0066cc; }
-        .sample-number { display: inline-block; background: #0066cc; color: white; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-bottom: 15px; }
-        .sample-card h3 { font-size: 20px; color: #24292e; margin-bottom: 12px; }
-        .sample-card .meta { font-size: 13px; color: #6a737d; margin-bottom: 8px; }
-        .sample-card .description { font-size: 14px; color: #586069; line-height: 1.6; }
-        .content-section { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .content-section h1 { font-size: 32px; color: #24292e; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #0066cc; }
-        .content-section h2 { font-size: 24px; color: #0066cc; margin-top: 35px; margin-bottom: 15px; }
-        .content-section h3 { font-size: 18px; color: #24292e; margin-top: 25px; margin-bottom: 12px; }
-        .content-section h4 { font-size: 16px; color: #24292e; margin-top: 20px; margin-bottom: 10px; }
-        .content-section p { margin-bottom: 15px; color: #24292e; }
-        .content-section ul, .content-section ol { margin: 15px 0 15px 25px; }
-        .content-section li { margin-bottom: 8px; }
-        .content-section table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
-        .content-section table th { background: #f6f8fa; border: 1px solid #d1d5da; padding: 12px; text-align: left; font-weight: 600; color: #24292e; }
-        .content-section table td { border: 1px solid #d1d5da; padding: 12px; }
-        .content-section table tr:nth-child(even) { background: #f9fafb; }
-        .content-section pre { background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.45; margin: 15px 0; }
-        .content-section code { background: #f6f8fa; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 13px; color: #d73a49; }
-        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 16px; margin: 20px 0; border-radius: 4px; }
-        .note strong { color: #856404; }
-        .tip { background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 16px; margin: 20px 0; border-radius: 4px; }
-        .warning { background: #f8d7da; border-left: 4px solid #dc3545; padding: 16px; margin: 20px 0; border-radius: 4px; }
-        .back-btn { display: inline-block; background: #f6f8fa; color: #0366d6; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 14px; margin-bottom: 30px; transition: all 0.2s; }
-        .back-btn:hover { background: #e1e4e8; }
-        @media (max-width: 768px) { .sidebar { display: none; } .main-content { padding: 20px; } .samples-grid { grid-template-columns: 1fr; } }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sri Jyothi Muccherla — Technical Writing Portfolio</title>
+  <meta name="description" content="Technical Writing Portfolio — ERP integration guides, finance workflows, and enterprise documentation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --accent-2: #34d399;
+      --border: #1f2937;
+      --chip: #1f2937;
+      --link: #93c5fd;
+      --code: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    header { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; margin-bottom: 24px; }
+    .brand h1 { margin: 0; font-size: 2rem; letter-spacing: 0.2px; }
+    .brand p { margin: 6px 0 0; color: var(--muted); }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      background: var(--accent);
+      color: #0b1220;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.secondary { background: var(--accent-2); }
+    .btn.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 2fr 1fr; } }
+    section.card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    section.card h2 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+    .list { display: grid; gap: 12px; }
+    .item { display: grid; gap: 6px; }
+    .item h3 { margin: 0; font-size: 1rem; }
+    .meta { color: var(--muted); font-size: 0.95rem; }
+    .bullet { margin: 0; padding-left: 18px; }
+    .bullet li { margin: 6px 0; }
+    footer { margin-top: 24px; padding: 18px; text-align: center; color: var(--muted); }
+    .two-col { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 700px) { .two-col { grid-template-columns: 1fr 1fr; } }
+    .contact-grid { display: grid; gap: 8px; }
+    .contact-row { display: flex; gap: 8px; align-items: center; }
+    .tag { font-weight: 600; color: var(--muted); min-width: 110px; }
+    .divider { height: 1px; background: var(--border); margin: 10px 0; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    details { background: #0d1628; border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+    details summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+    code, pre { background: var(--code); color: #cbd5e1; border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: block; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--border); padding: 8px; text-align: left; }
+    th { background: #0d1628; }
+    .toc { display: grid; gap: 8px; }
+    .toc a { display: inline-block; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--chip); }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Technical Writing Portfolio</h1>
-        <p>Sri Jyothi Muccherla | Senior Technical Writer</p>
-    </div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <h1>Sri Jyothi Muccherla</h1>
+        <p>Senior Technical Writer & Documentation Strategist — Hyderabad, India</p>
+        <p class="meta">jyothi.muccherla@gmail.com · +91 8885565657 · <a href="https://linkedin.com/in/sri-jyothi-muccherla" target="_blank" rel="noopener">linkedin.com/in/sri-jyothi-muccherla</a></p>
+      </div>
+      <div class="cta">
+        <a class="btn outline" href="#contact">Contact</a>
+        <a class="btn" href="#samples">Writing Samples</a>
+        <a class="btn secondary" href="#overview">Overview</a>
+      </div>
+    </header>
 
-    <div class="container">
-        <nav class="sidebar">
-            <div class="nav-section">
-                <div class="nav-title">Portfolio</div>
-                <a href="#" class="nav-link active" onclick="showPage('home'); return false;">About & Samples</a>
-            </div>
+    <div class="grid">
+      <!-- Left column -->
+      <div class="left">
+        <section class="card" id="overview">
+          <h2>Portfolio overview</h2>
+          <p>
+            Professional writing samples demonstrating comprehensive technical documentation capabilities across multiple audience types, content formats, and technical complexity levels. These samples reflect industry-standard documentation methodologies used in enterprise software environments.
+          </p>
+          <div class="divider"></div>
+          <div class="chips">
+            <span class="chip">ERP integrations</span>
+            <span class="chip">Authentication & security</span>
+            <span class="chip">Delta extraction</span>
+            <span class="chip">Finance workflows</span>
+            <span class="chip">AI-powered features</span>
+            <span class="chip">Procedural guides</span>
+          </div>
+          <p class="note" style="margin-top:10px;">
+            Confidentiality: Samples are sanitized to protect proprietary information while preserving structure, accuracy, and professional quality.
+          </p>
+        </section>
 
-            <div class="nav-section">
-                <div class="nav-title">Sample 1: ERP Integration</div>
-                <a href="#" class="nav-link" onclick="showPage('sample1'); return false;">Overview</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('sap'); return false;">SAP S/4 HANA</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('sf'); return false;">SAP SuccessFactors</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('d365'); return false;">Microsoft Dynamics 365</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('ns'); return false;">NetSuite</a>
-            </div>
+        <section class="card" id="samples">
+          <h2>Table of contents</h2>
+          <div class="toc">
+            <a href="#sample1">Sample 1: ERP Integration Configuration Guide</a>
+            <a href="#sample2">Sample 2: Bank Account Reconciliation Workflow</a>
+          </div>
+        </section>
 
-            <div class="nav-section">
-                <div class="nav-title">Sample 2: Bank Reconciliation</div>
-                <a href="#" class="nav-link" onclick="showPage('sample2'); return false;">Overview</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s1'); return false;">Step 1: Open</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s2'); return false;">Step 2: Upload</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s3'); return false;">Step 3: Set Balance</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s4'); return false;">Step 4: Review</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s5'); return false;">Step 5: Unmatched</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s6'); return false;">Step 6: Manual Match</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s7'); return false;">Step 7: Document</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s8'); return false;">Step 8: Submit</a>
-            </div>
-        </nav>
+        <!-- SAMPLE 1 -->
+        <section class="card" id="sample1">
+          <h2>Sample 1 — ERP integration configuration guide</h2>
+          <p class="meta">Audience: System administrators and integration developers · Document Type: Integration configuration & technical reference · Complexity: Advanced</p>
 
-        <main class="main-content">
-            <div id="home" class="page active">
-                <div class="about-card">
-                    <h2>Sri Jyothi Muccherla</h2>
-                    <div class="subtitle">Senior Technical Writer | 12+ Years Experience</div>
-                    <div class="summary">
-                        Senior technical writer with 12+ years of experience specializing in developer documentation, API references, and enterprise software platforms. This portfolio showcases my ability to create clear, comprehensive documentation for diverse audiences—from software developers and system integrators to finance professionals and business users. The samples demonstrate expertise in DITA/XML structured authoring, complex system integration, and AI-powered workflow documentation.
-                    </div>
-                    <div class="contact">
-                        <span>📧 <a href="mailto:jyothi.muccherla@gmail.com">jyothi.muccherla@gmail.com</a></span>
-                        <span>📱 +91 8885565657</span>
-                        <span>🔗 <a href="https://linkedin.com/in/sri-jyothi-muccherla" target="_blank">LinkedIn</a></span>
-                    </div>
-                </div>
+          <details open>
+            <summary>ERP system connections — scope & prerequisites</summary>
+            <ul class="bullet">
+              <li><strong>Scope:</strong> SAP S/4 HANA (ODP), SuccessFactors (OAuth 2.0), Microsoft Dynamics 365 (Azure AD), NetSuite (Token-based/JDBC), Infor LN, SAP BPC, SAP Analytics Cloud.</li>
+              <li><strong>Prerequisites:</strong> Admin access to source ERP and integration platform; coordination with ERP admin, DBA, and security team.</li>
+              <li><strong>Secure gateway:</strong> Optional on-premises gateway agent for compliant connectivity.</li>
+            </ul>
+          </details>
 
-                <div class="disclaimer-card">
-                    <h3>Disclaimer</h3>
-                    <p>These samples have been sanitized to protect proprietary information. Product names and company-specific terminology have been replaced with generic equivalents while preserving the original documentation structure, technical accuracy, and professional quality.</p>
-                </div>
+          <details>
+            <summary>SAP S/4 HANA — ODP setup, authorizations, and delta</summary>
+            <h3>Source system setup</h3>
+            <ul class="bullet">
+              <li><strong>Enable ODP:</strong> SU01 (RFC user), SICF (ODP services), path `/sap/opu/odata/sap/`, verify `ODP_EXTRACTION`.</li>
+              <li><strong>Expose data sources:</strong> RODPS_OS_EXPOSE; test via RODPS_REPL_TEST.</li>
+              <li><strong>Delta enablement:</strong> RSA2 for BW; CDS annotation; change docs/timestamps; initialize via ODQMON.</li>
+            </ul>
+            <h3>Authorizations</h3>
+            <table>
+              <thead><tr><th>Authorization object</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>S_RFC</td><td>Execute RFC functions</td></tr>
+                <tr><td>S_TABU_DIS</td><td>Table display authorization</td></tr>
+                <tr><td>S_BTCH_JOB</td><td>Background job scheduling</td></tr>
+                <tr><td>S_ODPE</td><td>ODP extraction authorization</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Recommended role template: SAP_BC_DWB_ABAPDEVELOPER (adjust per security policy).</p>
 
-                <div class="samples-section">
-                    <h2>Writing Samples</h2>
-                    <div class="samples-grid">
-                        <div class="sample-card" onclick="showPage('sample1')">
-                            <div class="sample-number">SAMPLE 1</div>
-                            <h3>ERP Integration Configuration Guide</h3>
-                            <div class="meta"><strong>Audience:</strong> System administrators and integration developers</div>
-                            <div class="meta"><strong>Type:</strong> Technical integration documentation</div>
-                            <div class="meta"><strong>Tools:</strong> MadCap Flare, Zendesk</div>
-                            <div class="description" style="margin-top: 12px;">
-                                Comprehensive guide covering SAP S/4 HANA, SuccessFactors, Microsoft Dynamics 365, NetSuite, and other ERP systems. Demonstrates complex system integration, authentication procedures, and delta configuration.
-                            </div>
-                        </div>
-
-                        <div class="sample-card" onclick="showPage('sample2')">
-                            <div class="sample-number">SAMPLE 2</div>
-                            <h3>Bank Reconciliation Workflow</h3>
-                            <div class="meta"><strong>Audience:</strong> Finance managers and accounting staff</div>
-                            <div class="meta"><strong>Type:</strong> User workflow guide</div>
-                            <div class="meta"><strong>Tools:</strong> MadCap Flare, Zendesk</div>
-                            <div class="description" style="margin-top: 12px;">
-                                Step-by-step guide for AI-powered bank account reconciliation. Demonstrates finance process documentation, procedural clarity, and user-focused technical writing for business applications.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="sample1" class="page">
-                <a href="#" class="back-btn" onclick="showPage('home'); return false;">← Back to Portfolio</a>
-                
-                <div class="content-section">
-                    <h1>ERP Integration Configuration Guide</h1>
-                    <p><strong>Audience:</strong> System administrators and integration developers | <strong>Tools:</strong> MadCap Flare, Zendesk</p>
-
-                    <p>This guide provides configuration procedures for connecting the platform to enterprise resource planning (ERP) systems. Each ERP system requires specific prerequisites, authentication methods, and connection parameters.</p>
-
-                    <div class="note"><strong>Note:</strong> All connections support optional integration through a secure gateway agent for on-premises deployments.</div>
-
-                    <h2 id="sap">SAP S/4 HANA</h2>
-                    <p>SAP S/4 HANA integration uses the Operational Data Provisioning (ODP) framework for efficient data extraction and delta processing.</p>
-
-                    <h3>Source System Prerequisites</h3>
-                    
-                    <h4>Step 1: Enable ODP Framework</h4>
-                    <ol>
-                        <li>Use Transaction <code>SU01</code> to create RFC user</li>
-                        <li>Use Transaction <code>SICF</code> to activate ODP services</li>
-                        <li>Navigate to path: <code>/sap/opu/odata/sap/</code></li>
-                        <li>Verify <code>ODP_EXTRACTION</code> service is active</li>
-                    </ol>
-
-                    <h4>Step 2: Configure Operational Data Provisioning</h4>
-                    <ol>
-                        <li>Use Transaction <code>RODPS_OS_EXPOSE</code> to expose data sources</li>
-                        <li>Select data sources to make available</li>
-                        <li>Activate for operational data provisioning</li>
-                        <li>Test using transaction <code>RODPS_REPL_TEST</code></li>
-                    </ol>
-
-                    <h4>Step 3: User Authorizations</h4>
-                    <table>
-                        <tr><th>Authorization Object</th><th>Description</th></tr>
-                        <tr><td><code>S_RFC</code></td><td>Execute RFC functions</td></tr>
-                        <tr><td><code>S_TABU_DIS</code></td><td>Table display authorization</td></tr>
-                        <tr><td><code>S_BTCH_JOB</code></td><td>Background job scheduling</td></tr>
-                        <tr><td><code>S_ODPE</code></td><td>ODP extraction authorization</td></tr>
-                    </table>
-
-                    <h3>Connection Configuration</h3>
-                    <pre>Application Server: [SAP system hostname/IP]
+            <h3>Connection configuration</h3>
+            <pre><code>Connection Type: SAP Application
+Application Server: [hostname/IP]
 System Number: [00-99]
-Client: [3-digit client, e.g., 100]
-Protocol: HTTP or HTTPS
-Authentication Type: Basic
-User: [RFC user]
-Password: [password]</pre>
+Instance Number: [instance_number]
+Router String: [optional]
+Client: [e.g., 100]
+Protocol: HTTP/HTTPS
+Authentication: Basic
+User/Password: [RFC user]
+Path Variable: [service path]
+Use OData: Enable
+Add Service Name Manually: Enable
+Service Name: [ODP service name]
+Agent (optional): Host/Port/Username/Password
+</code></pre>
 
-                    <h2 id="sf">SAP SuccessFactors</h2>
-                    <p>SuccessFactors integration requires OAuth 2.0 authentication with SAML bearer assertion.</p>
+            <h3>Available data sources</h3>
+            <table>
+              <thead><tr><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>ODP_BW</td><td>BW extractors (2LIS_, 0FI_, etc.)</td></tr>
+                <tr><td>ODP_CDS</td><td>CDS views marked for extraction</td></tr>
+                <tr><td>ODP_SAPI</td><td>Service API DataSources</td></tr>
+                <tr><td>ODP_HANA</td><td>HANA views (if HANA-connected)</td></tr>
+              </tbody>
+            </table>
 
-                    <h3>Prerequisites</h3>
-                    <ol>
-                        <li>Enable OData API Access in Admin Center</li>
-                        <li>Create dedicated integration user</li>
-                        <li>Configure OAuth 2.0 Client Application</li>
-                        <li>Generate X.509 certificate</li>
-                    </ol>
+            <h3>Delta configuration</h3>
+            <ul class="bullet">
+              <li><strong>CDS annotation:</strong></li>
+            </ul>
+            <pre><code>@Analytics.dataExtraction: {
+  enabled: true,
+  delta.changeDataCapture: {
+    automatic: true
+  }
+}</code></pre>
+            <ul class="bullet">
+              <li><strong>Platform setup:</strong> Import rule → Load Type: Delta → initialize full load → subsequent runs extract changes.</li>
+              <li><strong>Monitoring:</strong> ODQMON for queues, subscriber status, volumes, retention cleanup.</li>
+            </ul>
+          </details>
 
-                    <h3>Connection Configuration</h3>
-                    <pre>IDP: https://[tenant_id]/odata/v2
-Authentication Type: saml2-Bearer
-IDP URL: https://[tenant_id]/oauth
+          <details>
+            <summary>SuccessFactors — OAuth 2.0 (SAML bearer) & delta</summary>
+            <ul class="bullet">
+              <li><strong>Enable API:</strong> Admin Center → Company Settings → OData API Access.</li>
+              <li><strong>Integration user:</strong> Role-based permissions (EC API, Reports, MDF, module access).</li>
+              <li><strong>OAuth app:</strong> Manage OAuth2 Client Applications; X.509 cert; API key; SAML assertion.</li>
+            </ul>
+            <h3>Connection configuration</h3>
+            <pre><code>Connection Type: SAP SuccessFactors
+IDP: https://[tenant]/odata/v2
+Auth Type: saml2-Bearer
+IDP URL: https://[tenant]/oauth
 Parameters:
-  client_id: [client_id]
-  user_id: [user_id]
-  token_url: [token_url]</pre>
+  client_id, user_id, token_url, private_key, company_id
+  grant_type: urn:ietf:params:oauth:grant-type:saml2-bearer
+</code></pre>
+            <h3>Delta</h3>
+            <ul class="bullet">
+              <li>Import rule: Delta mode; timestamp field (e.g., lastModifiedDateTime); watermark maintained automatically.</li>
+            </ul>
+          </details>
 
-                    <h2 id="d365">Microsoft Dynamics 365</h2>
-                    <p>Dynamics 365 integration uses Azure Active Directory for authentication.</p>
+          <details>
+            <summary>Dynamics 365 — Azure AD app, application user, change tracking</summary>
+            <ul class="bullet">
+              <li><strong>Azure AD:</strong> App registration; client ID/secret; API permissions (CRM user_impersonation); admin consent.</li>
+              <li><strong>Dynamics app user:</strong> Settings → Security → Application Users; assign org-level read roles.</li>
+              <li><strong>Change tracking:</strong> Enable audit logs; per-entity change tracking; publish.</li>
+            </ul>
+            <h3>Connection configuration</h3>
+            <pre><code>OData URL: https://[org].api.crm.dynamics.com/api/data/v9.2
+Auth: OAuth (Client Credential)
+Token URL: https://login.microsoftonline.com/[tenant]/oauth2/v2.0/token
+Client ID/Secret: [values]
+Scope: https://[org].crm.dynamics.com/.default
+</code></pre>
+          </details>
 
-                    <h3>Azure AD Setup</h3>
-                    <ol>
-                        <li>Navigate to Azure Active Directory → App registrations</li>
-                        <li>Create new registration</li>
-                        <li>Note Application (client) ID</li>
-                        <li>Create client secret</li>
-                        <li>Set API permissions: Dynamics CRM → user_impersonation</li>
-                    </ol>
-
-                    <h3>Security Role</h3>
-                    <table>
-                        <tr><th>Privilege Type</th><th>Access Level</th></tr>
-                        <tr><td>Organization</td><td>Read</td></tr>
-                        <tr><td>Business Management</td><td>Read all settings</td></tr>
-                        <tr><td>Core Records</td><td>Read access</td></tr>
-                    </table>
-
-                    <h2 id="ns">NetSuite</h2>
-                    <p>NetSuite integration supports token-based authentication for analytics warehouse connectivity.</p>
-
-                    <h3>Enable SuiteCloud Features</h3>
-                    <ol>
-                        <li>Navigate to Administrator → Setup → Company → Enable Features</li>
-                        <li>Enable: Web Services, REST Web Services, Token-Based Authentication</li>
-                    </ol>
-
-                    <h3>Connection Configuration</h3>
-                    <pre>Host: [NetSuite Analytics server]
+          <details>
+            <summary>NetSuite — SuiteCloud, TBA, JDBC & delta</summary>
+            <ul class="bullet">
+              <li><strong>Enable features:</strong> Web Services, REST WS, Token-Based Auth, SuiteAnalytics Workbook.</li>
+              <li><strong>Integration user:</strong> Permissions for Web Services, Lists, Transactions, Reports.</li>
+              <li><strong>TBA:</strong> Access Tokens; store Token Secret securely.</li>
+            </ul>
+            <h3>Connection configuration</h3>
+            <pre><code>Connection Type: NetSuite Analytics (JDBC)
+Host: [server]
 Port: 1708
-Data Source: [database_identifier]
-Role: [role_id]
-Account: [account_id]</pre>
+Auth: Basic
+Data Source: [db]
+Role: [role ID]
+Account: [e.g., ACME_SB1]
+Username/Password: [integration user]
+Agent (optional): Host/Port/Username/Password
+</code></pre>
+            <h3>Delta</h3>
+            <table>
+              <thead><tr><th>Audit field</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>date_created</td><td>Record creation timestamp</td></tr>
+                <tr><td>date_last_modified</td><td>Last modification timestamp</td></tr>
+                <tr><td>last_modified_by</td><td>User who last modified</td></tr>
+              </tbody>
+            </table>
+            <ul class="bullet">
+              <li>Import Rule: Delta; timestamp field `date_last_modified`; initial load; rolling window (e.g., 24h).</li>
+            </ul>
+          </details>
 
-                    <div class="tip"><strong>Best Practice:</strong> Test all connections in non-production environment first.</div>
-                </div>
+          <details>
+            <summary>Additional systems — Infor LN, SAP BPC, SAP Analytics Cloud</summary>
+            <h3>Infor LN</h3>
+            <pre><code>Connection Type: Infor LN ERP
+Endpoint: https://[infor]/api
+Auth: OAuth (Basic credentials)
+OAuth URL: https://[auth]/auth
+User/Password: [values]
+Token Field Response Name: GetDataResponse
+</code></pre>
+            <h3>SAP BPC</h3>
+            <pre><code>Connection Type: SAP BPC API
+URL: https://[app]/sap/opu/odata/sap/[service]
+Auth: Basic
+User/Password: [values]
+</code></pre>
+            <h3>SAP Analytics Cloud</h3>
+            <pre><code>Connection Type: SAP Analytics Cloud
+OData URL: [service]
+Auth: OAuth (Client Credential)
+OAuth URL: [endpoint]
+Client ID/Secret: [values]
+Scope: [authorization_scope]
+</code></pre>
+            <p class="note">Best practice: validate in non-production; verify extraction, delta, and performance with representative volumes.</p>
+          </details>
+
+          <p class="meta">Document Version: 2.0 · Last Updated: January 2025</p>
+        </section>
+
+        <!-- SAMPLE 2 -->
+        <section class="card" id="sample2">
+          <h2>Sample 2 — Bank account reconciliation workflow</h2>
+          <p class="meta">Audience: Finance managers, accounting staff, reconciliation analysts · Document Type: User workflow & procedural guide · Complexity: Intermediate</p>
+
+          <details open>
+            <summary>Overview & automatic matching</summary>
+            <p>AI-powered automatic matching reconciles GL transactions against bank statements, parsing uploads and matching transactions to eliminate 80–90% of manual work.</p>
+          </details>
+
+          <details>
+            <summary>Step 1 — Open reconciliation</summary>
+            <ul class="bullet">
+              <li>Go to <strong>Reconciliations</strong> module → select bank account (by account number in Support Source) → open Reconciliation Details.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Step 2 — Upload bank statements</summary>
+            <ul class="bullet">
+              <li><strong>Supported formats:</strong> Excel (.xlsx, .xls), CSV, PDF, JPG, PNG.</li>
+              <li><strong>Verify:</strong> account number, period dates, amounts, descriptions; ensure period alignment.</li>
+            </ul>
+            <h3>Processing status</h3>
+            <table>
+              <thead><tr><th>Status</th><th>Indicator</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>Processing</td><td>Green spinner</td><td>File parsing in progress</td></tr>
+                <tr><td>Attached</td><td>Green checkmark</td><td>Processed successfully</td></tr>
+                <tr><td>Error</td><td>Red icon</td><td>Failed—see details</td></tr>
+              </tbody>
+            </table>
+            <ul class="bullet">
+              <li><strong>Common errors:</strong> wrong period, corrupted file, missing date/amount/description.</li>
+            </ul>
+            <h3>Automatic matching</h3>
+            <ul class="bullet">
+              <li>Populates <strong>Matched Results</strong>; leaves remaining in <strong>Unmatched Items</strong>; updates KPI cards.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Step 3 — Set support balance</summary>
+            <ul class="bullet">
+              <li>Use <strong>Set Balance</strong> when closing balance isn’t in the statement; system computes GL vs Support difference.</li>
+            </ul>
+            <table>
+              <thead><tr><th>Scenario</th><th>GL vs Support</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td>Balanced</td><td>Equal</td><td>Submit for review</td></tr>
+                <tr><td>Variance</td><td>Not equal</td><td>Document unmatched items/comments</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Balance overrides: later statement with balance replaces manual; latest manual update is source of truth; disabled beyond Preparation stage.</p>
+          </details>
+
+          <details>
+            <summary>Step 4 — Review matched transactions</summary>
+            <ul class="bullet">
+              <li>Verify Match ID, dates, amounts, descriptions, trading partners.</li>
+              <li>Unmatch only in Preparation stage; items move to Unmatched Items.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Step 5 — Manage unmatched transactions</summary>
+            <h3>Layout</h3>
+            <p><strong>GL Account (left)</strong> vs <strong>Bank (right)</strong> side-by-side tables with Date, Amount, Description, Trading Partner, Comment.</p>
+            <p class="note">If none exist, tables show “No unmatched transactions.”</p>
+            <h3>Selection summary</h3>
+            <ul class="bullet">
+              <li>Displays counts and totals for selected GL and Bank items.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Step 6 — Manually match transactions</summary>
+            <ul class="bullet">
+              <li>Select GL and bank entries with same amount → verify selection totals → <strong>Match Selected</strong> → optional comment.</li>
+              <li>Result: pair moves to Matched Results; KPIs update.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Step 7 — Document unmatched transactions</summary>
+            <h3>Common items</h3>
+            <ul class="bullet">
+              <li>Outstanding checks, deposits in transit, bank fees, timing differences.</li>
+            </ul>
+            <h3>Documentation</h3>
+            <ul class="bullet">
+              <li>Add reason, expected resolution date, references; items carry forward until resolved.</li>
+            </ul>
+            <p class="note">Previous-period unmatched items remain visible after future matching; become read-only; re-editable if future match is undone.</p>
+          </details>
+
+          <details>
+            <summary>Step 8 — Submit for review</summary>
+            <h3>Checklist</h3>
+            <ul class="bullet">
+              <li>All matches done; variances documented; KPIs acceptable; balances aligned or explained.</li>
+            </ul>
+            <h3>Submission</h3>
+            <ul class="bullet">
+              <li>Click <strong>Submit for Review</strong> → add comments → confirm; status becomes Pending Review; transactions lock; reviewer notified.</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Tips & troubleshooting</summary>
+            <h3>Efficiency</h3>
+            <ul class="bullet">
+              <li>Validate period and readability; start with exact amount matches; document unusual items immediately.</li>
+            </ul>
+            <h3>Troubleshooting</h3>
+            <table>
+              <thead><tr><th>Issue</th><th>Solution</th></tr></thead>
+              <tbody>
+                <tr><td>Upload fails</td><td>Check format; re-export from bank</td></tr>
+                <tr><td>AI misses obvious matches</td><td>Verify date/amount formats; descriptions contain keywords</td></tr>
+                <tr><td>Cannot unmatch</td><td>Ensure Preparation stage; contact admin if locked</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <p class="meta">Document Version: 2.1 · Last Updated: January 2025</p>
+        </section>
+      </div>
+
+      <!-- Right column -->
+      <div class="right">
+        <section class="card" id="skills">
+          <h2>Core skills</h2>
+          <div class="two-col">
+            <div>
+              <div class="chips">
+                <span class="chip">Technical writing</span>
+                <span class="chip">Information architecture</span>
+                <span class="chip">API & developer docs</span>
+                <span class="chip">Content strategy</span>
+                <span class="chip">Style guides & governance</span>
+              </div>
             </div>
-
-            <div id="sample2" class="page">
-                <a href="#" class="back-btn" onclick="showPage('home'); return false;">← Back to Portfolio</a>
-                
-                <div class="content-section">
-                    <h1>Bank Account Reconciliation Workflow</h1>
-                    <p><strong>Audience:</strong> Finance managers, accounting staff | <strong>Tools:</strong> MadCap Flare, Zendesk</p>
-
-                    <p>Bank account reconciliations use AI-powered automatic matching to reconcile general ledger transactions against bank statement data. The system automatically parses uploaded statements and matches transactions, eliminating 80-90% of manual reconciliation work.</p>
-
-                    <h2 id="s1">Step 1: Open Bank Account Reconciliation</h2>
-                    <p>Begin by navigating to the bank account you want to reconcile.</p>
-                    <ol>
-                        <li>Navigate to the <strong>Reconciliations</strong> module</li>
-                        <li>Locate the bank account (identified by bank account number)</li>
-                        <li>Click on the account row to open Reconciliation Details page</li>
-                    </ol>
-
-                    <h2 id="s2">Step 2: Upload Bank Statements</h2>
-                    <p>Upload bank statement files to initiate AI-powered automatic transaction matching.</p>
-
-                    <h3>To Upload Bank Statements</h3>
-                    <ol>
-                        <li>Click the <strong>Upload</strong> button on the Reconciliation Details page</li>
-                        <li>In the upload dialog: click <strong>Browse Files</strong> or <strong>Drop files</strong> in upload area</li>
-                        <li>Select your bank statement file (Excel, CSV, PDF, or image formats)</li>
-                        <li>Verify the file contains: account number, statement period, transaction amounts, descriptions</li>
-                        <li>Ensure transactions match the selected accounting period</li>
-                        <li>Click <strong>Open</strong> to upload the file</li>
-                        <li>Click <strong>Upload</strong> to upload the file</li>
-                    </ol>
-
-                    <h3>Monitor File Processing</h3>
-                    <table>
-                        <tr><th>Status</th><th>Indicator</th><th>Meaning</th></tr>
-                        <tr><td>Processing</td><td>Green spinner</td><td>File is being parsed</td></tr>
-                        <tr><td>Attached</td><td>Green checkmark</td><td>File successfully processed</td></tr>
-                        <tr><td>Error</td><td>Red icon</td><td>Processing failed: wrong period data, corrupted file, or missing field</td></tr>
-                    </table>
-
-                    <p><strong>After successful upload:</strong></p>
-                    <ul>
-                        <li>System automatically parses the file</li>
-                        <li>AI engine performs automatic matching</li>
-                        <li>Matched Results tab populates with matched pairs</li>
-                        <li>Unmatched Items tab shows remaining transactions</li>
-                        <li>KPI cards update with current totals</li>
-                    </ul>
-
-                    <h2 id="s3">Step 3: Set Support Balance</h2>
-                    <p>Manually enter the closing balance when not included in the uploaded bank statement.</p>
-
-                    <h3>Reconciliation Scenarios</h3>
-                    <table>
-                        <tr><th>Scenario</th><th>GL vs Support Balance</th><th>Required Action</th></tr>
-                        <tr><td>Balanced</td><td>GL Balance = Support Balance</td><td>Submit for review with no unmatched items</td></tr>
-                        <tr><td>Variance Exists</td><td>GL Balance ≠ Support Balance</td><td>Add unmatched items or comments to explain difference</td></tr>
-                    </table>
-
-                    <h2 id="s4">Step 4: Review Matched Transactions</h2>
-                    <p>Verify the accuracy of AI-matched transaction pairs.</p>
-
-                    <table>
-                        <tr><th>Field</th><th>What to Check</th></tr>
-                        <tr><td>Match ID</td><td>Unique identifier with color coding</td></tr>
-                        <tr><td>Dates</td><td>GL date corresponds to bank date</td></tr>
-                        <tr><td>Amounts</td><td>GL amount equals bank amount exactly</td></tr>
-                        <tr><td>Descriptions</td><td>GL description relates to bank description</td></tr>
-                        <tr><td>Trading Partners</td><td>GL and bank trading partners match</td></tr>
-                    </table>
-
-                    <h3>Unmatching Incorrect Pairs</h3>
-                    <ol>
-                        <li>Locate the incorrect match</li>
-                        <li>Click the <strong>Unmatch</strong> icon on the right side</li>
-                        <li>Both transactions move to Unmatched Items tab</li>
-                    </ol>
-
-                    <div class="warning"><strong>Restriction:</strong> You can only unmatch transactions in Preparation stage. Once submitted, transactions are locked.</div>
-
-                    <h2 id="s5">Step 5: Manage Unmatched Transactions</h2>
-                    <p>Review transactions requiring manual matching using side-by-side comparison view.</p>
-
-                    <h3>GL Account (Left Table)</h3>
-                    <p>Shows GL transactions not yet matched to bank statements.</p>
-                    <table>
-                        <tr><th>Column</th><th>Description</th></tr>
-                        <tr><td>Date</td><td>Date of the GL entry</td></tr>
-                        <tr><td>Amount</td><td>Amount of GL entry (color-coded)</td></tr>
-                        <tr><td>Description</td><td>Transaction description</td></tr>
-                        <tr><td>Trading Partner</td><td>Name of trading partner</td></tr>
-                        <tr><td>Comment</td><td>Field to add or view comments</td></tr>
-                    </table>
-
-                    <h3>Support Source / Bank Account (Right Table)</h3>
-                    <p>Shows bank transactions not yet matched to GL entries.</p>
-                    <table>
-                        <tr><th>Column</th><th>Description</th></tr>
-                        <tr><td>Date</td><td>Date of bank statement line</td></tr>
-                        <tr><td>Amount</td><td>Amount of statement line</td></tr>
-                        <tr><td>Description</td><td>Bank transaction description</td></tr>
-                        <tr><td>Bank Reference</td><td>Bank-provided reference number</td></tr>
-                        <tr><td>Trading Partner</td><td>Name of trading partner</td></tr>
-                        <tr><td>Comment</td><td>Field to add or view comments</td></tr>
-                    </table>
-
-                    <h2 id="s6">Step 6: Manually Match Transactions</h2>
-                    <p>Create manual matches for transactions the AI engine could not pair automatically.</p>
-                    <ol>
-                        <li>Find a GL entry and bank line with the same amount</li>
-                        <li>Select the checkboxes next to both transactions</li>
-                        <li>Verify the selection summary bar shows matching totals</li>
-                        <li>Click <strong>Match Selected</strong> to link the transactions</li>
-                        <li>(Optional) Add a comment to explain unusual aspects</li>
-                    </ol>
-
-                    <h2 id="s7">Step 7: Document Unmatched Transactions</h2>
-                    <p>Add explanatory comments for transactions that cannot be matched in current period.</p>
-
-                    <h3>Common Unmatched Items</h3>
-                    <ul>
-                        <li>Outstanding checks not yet cleared by the bank</li>
-                        <li>Deposits in transit</li>
-                        <li>Bank fees or charges not yet recorded in GL</li>
-                        <li>Timing differences between systems</li>
-                    </ul>
-
-                    <h3>Documentation Process</h3>
-                    <ol>
-                        <li>Navigate to the <strong>Unmatched Items</strong> tab</li>
-                        <li>Select the unmatched transaction(s)</li>
-                        <li>Click <strong>Add Comment</strong></li>
-                        <li>Enter clear explanation including reason, expected resolution date, and reference numbers</li>
-                    </ol>
-
-                    <h2 id="s8">Step 8: Submit Reconciliation for Review</h2>
-                    <p>Complete the reconciliation process by submitting for management review.</p>
-
-                    <h3>Pre-Submission Checklist</h3>
-                    <ul>
-                        <li>✓ All possible matches have been identified and matched</li>
-                        <li>✓ Remaining variances are documented with clear comments</li>
-                        <li>✓ KPI cards show acceptable reconciliation totals</li>
-                        <li>✓ Support balance matches GL balance (or variances are explained)</li>
-                    </ul>
-
-                    <h3>Submission Process</h3>
-                    <ol>
-                        <li>Review the reconciliation summary in KPI cards</li>
-                        <li>Click <strong>Submit for Review</strong></li>
-                        <li>(Optional) Add comments for reviewers</li>
-                        <li>Click <strong>Confirm</strong></li>
-                    </ol>
-
-                    <h3>Tips for Efficient Reconciliation</h3>
-                    <p><strong>Before uploading statements:</strong></p>
-                    <ul>
-                        <li>Ensure statement covers correct accounting period</li>
-                        <li>Verify statement format is readable</li>
-                        <li>Check all transaction details are visible</li>
-                    </ul>
-
-                    <p><strong>During matching:</strong></p>
-                    <ul>
-                        <li>Start with exact amount matches - these are most reliable</li>
-                        <li>Review AI-suggested matches before accepting</li>
-                        <li>Document unusual items immediately</li>
-                    </ul>
-                </div>
+            <div>
+              <div class="chips">
+                <span class="chip">AI-assisted workflows</span>
+                <span class="chip">Process automation</span>
+                <span class="chip">Enterprise integrations</span>
+                <span class="chip">Finance workflows</span>
+                <span class="chip">Editorial QA</span>
+              </div>
             </div>
-        </main>
+          </div>
+          <div class="divider"></div>
+          <p class="note">I value clarity, precision, and evidence-based decisions—whether designing content systems or documenting complex integrations.</p>
+        </section>
+
+        <section class="card" id="contact">
+          <h2>Contact</h2>
+          <div class="contact-grid">
+            <div class="contact-row">
+              <span class="tag">Location</span>
+              <span>Hyderabad, India</span>
+            </div>
+            <div class="contact-row">
+              <span class="tag">Email</span>
+              <span><a href="mailto:jyothi.muccherla@gmail.com">jyothi.muccherla@gmail.com</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="tag">Phone</span>
+              <span><a href="tel:+918885565657">+91 8885565657</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="tag">LinkedIn</span>
+              <span><a href="https://linkedin.com/in/sri-jyothi-muccherla" target="_blank" rel="noopener">linkedin.com/in/sri-jyothi-muccherla</a></span>
+            </div>
+            <div class="contact-row">
+              <span class="tag">Resume</span>
+              <span><a href="#" target="_blank" rel="noopener">Add your PDF link</a></span>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
 
-    <script>
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            if (event && event.target) event.target.classList.add('active');
-            window.scrollTo(0, 0);
-        }
+    <footer>
+      © <span id="year"></span> Sri Jyothi Muccherla · Technical Writing Portfolio
+    </footer>
+  </div>
 
-        function scrollTo(id) {
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        }
-    </script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
