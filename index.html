@@ -72,29 +72,13 @@
         <nav class="sidebar">
             <div class="nav-section">
                 <div class="nav-title">Portfolio</div>
-                <a href="#" class="nav-link active" onclick="showPage('home'); return false;">About & Samples</a>
+                <a href="#" class="nav-link active" onclick="showPage('home'); return false;">Home</a>
             </div>
 
             <div class="nav-section">
-                <div class="nav-title">Sample 1: ERP Integration</div>
-                <a href="#" class="nav-link" onclick="showPage('sample1'); return false;">Overview</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('sap'); return false;">SAP S/4 HANA</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('sf'); return false;">SAP SuccessFactors</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('d365'); return false;">Microsoft Dynamics 365</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample1'); scrollTo('ns'); return false;">NetSuite</a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-title">Sample 2: Bank Reconciliation</div>
-                <a href="#" class="nav-link" onclick="showPage('sample2'); return false;">Overview</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s1'); return false;">Step 1: Open</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s2'); return false;">Step 2: Upload</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s3'); return false;">Step 3: Set Balance</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s4'); return false;">Step 4: Review</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s5'); return false;">Step 5: Unmatched</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s6'); return false;">Step 6: Manual Match</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s7'); return false;">Step 7: Document</a>
-                <a href="#" class="nav-link nav-sublink" onclick="showPage('sample2'); scrollTo('s8'); return false;">Step 8: Submit</a>
+                <div class="nav-title">Writing Samples</div>
+                <a href="#" class="nav-link" onclick="showPage('sample1'); return false;">Sample 1: ERP Integration</a>
+                <a href="#" class="nav-link" onclick="showPage('sample2'); return false;">Sample 2: Bank Reconciliation</a>
             </div>
         </nav>
 
@@ -435,13 +419,6 @@ Account: [account_id]</pre>
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             if (event && event.target) event.target.classList.add('active');
             window.scrollTo(0, 0);
-        }
-
-        function scrollTo(id) {
-            setTimeout(() => {
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
         }
     </script>
 </body>
